@@ -14,28 +14,20 @@
 // approach 3: two pointer using recursion
 
 class Solution {
-public:
-    bool isPalindrome(ListNode* head) {
-        ListNode* temp=head;
-        return check(head,temp);
-    }
     
-    bool check(ListNode* head, ListNode*& temp){
-        
-        bool res;
-        
-        if(head == NULL){
+    bool check(ListNode*& head,ListNode* node){
+        if(!node){
             return true;
         }
-       
-        res=check(head->next, temp);
-        if(!res){
+        bool isPal=check(head,node->next);
+        if(head->val!=node->val){
             return false;
         }
-        
-        res= head->val==temp->val;  
-        temp=temp->next;
-       return res;
-     
+        head=head->next;
+        return isPal;
     }
+public:
+    bool isPalindrome(ListNode* head) {
+     return check(head,head);
+};
 };
